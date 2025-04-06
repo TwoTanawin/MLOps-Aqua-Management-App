@@ -1,0 +1,55 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_test_sensor
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
+      - MONGO_INITDB_DATABASE=testSensor
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    command: mongod --bind_ip_all --auth
+    networks:
+      - mlops_network
+
+  mlops_db:
+    image: postgres:16
+    container_name: postgres_test
+    platform: linux/amd64
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=aqua_app
+    ports:
+      - "5432:5432"
+    networks:
+      - mlops_network
+
+  mlops_pgadmin:
+    image: dpage/pgadmin4
+    container_name: mlops_pgadmin
+    platform: linux/amd64
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+    ports:
+      - "8489:80"
+    depends_on:
+      - mlops_db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - mlops_network
+
+volumes:
+  mongodb_data:
+  mongodb_config:
+  pgadmin_data:
+
+networks:
+  mlops_network:
+    driver: bridge

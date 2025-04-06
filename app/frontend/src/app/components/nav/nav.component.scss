@@ -1,0 +1,45 @@
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: #3b5998; // or your specific blue
+    padding: 1rem;
+    border-radius: 4px;
+    color: white;
+  }
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .label {
+    font-size: 0.9rem;
+  }
+  
+  .count {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 2px 10px;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    min-width: 28px;
+  
+    &.filled {
+      background-color: white;
+      color: #3b5998;
+    }
+  
+    &.outlined {
+      border: 2px solid white;
+    }
+  }
+  
+  .add-btn {
+    background-color: white !important;
+    color: #3b5998 !important;
+    font-weight: bold;
+  }
+  
